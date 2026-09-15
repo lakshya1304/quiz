@@ -49,7 +49,7 @@ export default function AdminDashboard() {
   };
 
   const fetchQuestions = async () => {
-    const res = await fetch(`${API_URL}/api/questions`);
+    const res = await fetch(`${API_URL}/api/questions`, { cache: 'no-store' });
     const data = await res.json();
     setQuestions(data);
   };
@@ -68,6 +68,7 @@ export default function AdminDashboard() {
   const handleDeleteQuestion = async (id) => {
     if (confirm('Are you sure?')) {
       await fetch(`${API_URL}/api/questions/${id}`, { method: 'DELETE' });
+      fetchQuestions();
     }
   };
 
