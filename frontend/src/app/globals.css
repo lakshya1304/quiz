@@ -14,6 +14,15 @@
   --font-sans: 'Inter', system-ui, sans-serif;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: #ffffff;
+    --panel-bg: #f8f9fa;
+    --text-main: #000000;
+    --text-muted: #495057;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -113,13 +122,20 @@ h1, h2, h3, h4, h5, h6 {
 .input-field {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: var(--text-main);
   padding: 12px;
   font-family: var(--font-mono);
   width: 100%;
   margin-bottom: 15px;
   outline: none;
   transition: border-color 0.2s ease;
+}
+
+@media (prefers-color-scheme: light) {
+  .input-field {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
 }
 
 .input-field:focus {
