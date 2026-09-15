@@ -50,6 +50,17 @@ export default function LeaderboardDashboard() {
     }
   };
 
+  // Admin restart quiz handler
+  const handleRestartQuiz = () => {
+    const pass = prompt('Enter admin passcode to restart quiz:');
+    if (!pass) return;
+    if (socket) {
+      socket.emit('adminAction', { action: 'RESET_QUIZ', passcode: pass }, (res) => {
+        if (!res.success) alert(res.error || 'Failed to restart quiz');
+      });
+    }
+  };
+
   // Top 3 reveal sequence
   useEffect(() => {
     if (quizState?.status === 'COMPLETED') {
@@ -131,7 +142,7 @@ export default function LeaderboardDashboard() {
   // 2. LIVE QUIZ PHASE
   if (quizState.status === 'LIVE') {
     return (
-      <div style={{ display: 'flex', height: '100vh', padding: '2rem', gap: '2rem' }}>
+      <div className="responsive-layout">
         
         {/* Left Side: Question Status */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -229,13 +240,14 @@ export default function LeaderboardDashboard() {
     const third = top3[2];
 
     return (
-      <div style={{ display: 'flex', height: '100vh', padding: '2rem', gap: '2rem' }}>
+      <div className="responsive-layout">
         
         {/* Left Side: Top 3 Podium */}
         <div style={{ flex: 3, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+          <button onClick={handleRestartQuiz} className="neon-button" style={{ position: 'absolute', top: 0, left: 0, padding: '0.5rem 1rem', fontSize: '1rem', borderRadius: '4px', background: 'var(--accent-red)', color: '#000', border: 'none', cursor: 'pointer', zIndex: 100 }}>RESTART QUIZ</button>
           <h1 className="neon-text" style={{ fontSize: '3rem', letterSpacing: '5px', marginBottom: '4rem', animation: 'pulse 1s infinite' }}>SYSTEM CHAMPIONS</h1>
           
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '2rem', width: '100%' }}>
+          <div className="podium-container">
             
             {/* #2 Place */}
             {top3RevealStep >= 2 && second && (

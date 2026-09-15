@@ -267,7 +267,7 @@ socket.emit('register', form, (res) => {
           <h4 className="text-muted" style={{ marginBottom: '1rem' }}>QUESTION {String(q.questionNumber).padStart(2, '0')}</h4>
           <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>{q.questionText}</h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: 'auto' }}>
+          <div className="options-grid">
             {['A', 'B', 'C', 'D'].map(opt => {
               const text = q[`option${opt}`];
               
@@ -351,7 +351,7 @@ socket.emit('register', form, (res) => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', textAlign: 'left', background: 'rgba(0,0,0,0.5)', padding: '20px', borderRadius: '4px' }}>
+          <div className="options-grid" style={{ textAlign: 'left', background: 'rgba(0,0,0,0.5)', padding: '20px', borderRadius: '4px' }}>
             <div>CORRECT ANSWERS: <span className="text-success">{scoreData.correct}</span></div>
             <div>WRONG ANSWERS: <span className="text-danger">{scoreData.wrong}</span></div>
             <div>UNANSWERED: <span className="text-amber">{scoreData.unanswered}</span></div>
