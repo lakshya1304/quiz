@@ -198,6 +198,16 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Option Button Reset for Mobile */
+.option-button {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
 /* Responsive Layout for Leaderboard / Admin */
 .responsive-layout {
   display: flex;

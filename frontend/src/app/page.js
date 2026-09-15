@@ -289,6 +289,7 @@ socket.emit('register', form, (res) => {
 
               return (
                 <button
+                  className="option-button"
                   style={{
                     background: bgColor,
                     border: `2px solid ${borderColor}`,
