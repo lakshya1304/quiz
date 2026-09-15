@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 module.exports = function (io, db, quizState) {
   let questionTimer = null;
-  const QUESTION_DURATION = 15; // 15 seconds
+  const QUESTION_DURATION = 20; // 20 seconds
 
   // Fetch all questions from DB to memory
   let allQuestions = [];
@@ -34,7 +34,7 @@ module.exports = function (io, db, quizState) {
       } : null,
       questionStartedAt: quizState.questionStartedAt,
       questionEndsAt: quizState.questionEndsAt,
-      timeRemaining: quizState.questionEndsAt ? Math.max(0, Math.ceil((quizState.questionEndsAt - now) / 1000)) : 15,
+      timeRemaining: quizState.questionEndsAt ? Math.max(0, Math.ceil((quizState.questionEndsAt - now) / 1000)) : 20,
       totalParticipants: quizState.totalParticipants,
       activeParticipants: quizState.activeParticipants,
       answersReceivedForCurrent: quizState.answersReceivedForCurrent,
@@ -127,12 +127,7 @@ module.exports = function (io, db, quizState) {
           let speedBonus = 0;
 
           if (isCorrect) {
-            if (responseTime <= 5) {
-              points = 6;
-              speedBonus = 2;
-            } else {
-              points = 4;
-            }
+            points = 5;
           } else {
             points = -1;
           }

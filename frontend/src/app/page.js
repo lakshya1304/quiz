@@ -17,7 +17,7 @@ export default function ParticipantDashboard() {
   const [form, setForm] = useState({ name: '', course: '' });
   
   // Live Question Data
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [selectedOption, setSelectedOption] = useState(null);
   const [lockedOption, setLockedOption] = useState(null);
   const [questionResult, setQuestionResult] = useState(null); // { isCorrect, correctAnswer, points, speedBonus }
@@ -92,7 +92,7 @@ export default function ParticipantDashboard() {
     if (quizState?.status === 'LIVE' && quizState.currentQuestion) {
       // Initialize time left from the server's remaining time estimation
       // We assume the server sends 'timeRemaining' in the state, but if not, fallback to 15
-      const initialRemaining = quizState.timeRemaining ?? 15;
+      const initialRemaining = quizState.timeRemaining ?? 20;
       setTimeLeft(initialRemaining);
       
       const interval = setInterval(() => {
@@ -264,7 +264,7 @@ socket.emit('register', form, (res) => {
 
         {/* Question Area */}
         <div className="hud-panel" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <h4 className="text-muted" style={{ marginBottom: '1rem' }}>QUESTION {String(q.questionNumber).padStart(2, '0')}</h4>
+          <h4 className="text-muted" style={{ marginBottom: '1rem' }}>QUESTION {String(q.questionNumber).padStart(2, '0')} / {String(quizState.totalQuestions || '-').padStart(2, '0')}</h4>
           <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>{q.questionText}</h2>
 
           <div className="options-grid">
@@ -320,7 +320,6 @@ socket.emit('register', form, (res) => {
                 </h2>
                 <div style={{ fontSize: '1.2rem', marginTop: '5px' }}>
                   +{questionResult.points} POINTS
-                  {questionResult.speedBonus > 0 && <span className="neon-text" style={{marginLeft: '10px'}}>(+2 SPEED BONUS)</span>}
                 </div>
               </div>
             )}
@@ -357,7 +356,6 @@ socket.emit('register', form, (res) => {
             <div>CORRECT ANSWERS: <span className="text-success">{scoreData.correct}</span></div>
             <div>WRONG ANSWERS: <span className="text-danger">{scoreData.wrong}</span></div>
             <div>UNANSWERED: <span className="text-amber">{scoreData.unanswered}</span></div>
-            <div>SPEED BONUSES: <span className="neon-text">{scoreData.speedBonuses}</span></div>
           </div>
           
           <h3 style={{ marginTop: '2rem', animation: 'pulse 2s infinite' }}>WATCH THE LIVE LEADERBOARD</h3>
