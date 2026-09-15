@@ -147,7 +147,7 @@ export default function LeaderboardDashboard() {
         {/* Left Side: Question Status */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div className="hud-panel" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-            <h3 className="text-muted">QUESTION {String(quizState.currentQuestionIndex + 1).padStart(2, '0')} / 20</h3>
+            <h3 className="text-muted">QUESTION {String(quizState.currentQuestionIndex + 1).padStart(2, '0')} / {quizState.totalQuestions || '-'}</h3>
             <div style={{ fontSize: '2rem', margin: '1.5rem 0', fontWeight: 'bold' }}>
               {quizState.currentQuestion?.questionText}
             </div>

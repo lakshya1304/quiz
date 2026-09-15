@@ -6,11 +6,17 @@ module.exports = function (io, db, quizState) {
 
   // Fetch all questions from DB to memory
   let allQuestions = [];
-  db.all('SELECT * FROM questions ORDER BY questionNumber ASC', (err, rows) => {
-    if (!err) {
-      allQuestions = rows;
-    }
-  });
+  
+  quizState.reloadQuestions = () => {
+    db.all('SELECT * FROM questions ORDER BY questionNumber ASC', (err, rows) => {
+      if (!err) {
+        allQuestions = rows;
+        broadcastState();
+      }
+    });
+  };
+
+  quizState.reloadQuestions();
 
   const getPublicState = () => {
     const now = Date.now();
@@ -31,7 +37,8 @@ module.exports = function (io, db, quizState) {
       timeRemaining: quizState.questionEndsAt ? Math.max(0, Math.ceil((quizState.questionEndsAt - now) / 1000)) : 15,
       totalParticipants: quizState.totalParticipants,
       activeParticipants: quizState.activeParticipants,
-      answersReceivedForCurrent: quizState.answersReceivedForCurrent
+      answersReceivedForCurrent: quizState.answersReceivedForCurrent,
+      totalQuestions: allQuestions.length
     };
   };
 

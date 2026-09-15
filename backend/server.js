@@ -62,6 +62,7 @@ app.post('/api/questions', (req, res) => {
     [questionNumber, questionText, optionA, optionB, optionC, optionD, correctAnswer],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
+      if (quizState.reloadQuestions) quizState.reloadQuestions();
       res.json({ id: this.lastID });
     }
   );
@@ -71,6 +72,7 @@ app.post('/api/questions', (req, res) => {
 app.delete('/api/questions/:id', (req, res) => {
   db.run(`DELETE FROM questions WHERE id = ?`, [req.params.id], function(err) {
     if (err) return res.status(500).json({ error: err.message });
+    if (quizState.reloadQuestions) quizState.reloadQuestions();
     res.json({ success: true });
   });
 });
