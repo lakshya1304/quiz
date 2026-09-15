@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 // Admin passcode state for starting quiz from leaderboard
 
-const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || 'https://quiz-ds0t.onrender.com';
 
 export default function LeaderboardDashboard() {
   const [socket, setSocket] = useState(null);
