@@ -298,6 +298,7 @@ socket.emit('register', form, (res) => {
                     opacity: selectedOption ? 0.6 : 1,
                     minWidth: '120px',
                     textAlign: 'left',
+                    color: 'white',
                   }}
                   disabled={!!selectedOption}
                   onClick={() => handleOptionSelect(opt)}
