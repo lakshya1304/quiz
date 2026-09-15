@@ -126,7 +126,7 @@ const handleDeleteAllRegistrations = async () => {
                 <p><strong>Status:</strong> <span className="neon-text">{quizState.status}</span></p>
                 <p><strong>Total Registered:</strong> {quizState.totalParticipants}</p>
                 <p><strong>Active Players:</strong> {quizState.activeParticipants}</p>
-                <p><strong>Current Question:</strong> {quizState.currentQuestionIndex + 1} / 20</p>
+                <p><strong>Current Question:</strong> {quizState.status === 'LIVE' ? quizState.currentQuestionIndex + 1 : 0} / {questions.length}</p>
                 <p><strong>Answers Received:</strong> {quizState.answersReceivedForCurrent}</p>
               </div>
             ) : <p>Loading state...</p>}
@@ -168,7 +168,7 @@ const handleDeleteAllRegistrations = async () => {
           </div>
 
           <div className="hud-panel" style={{ maxHeight: '500px', overflowY: 'auto' }}>
-            <h3 style={{ marginBottom: '1rem' }}>QUESTION BANK ({questions.length}/20)</h3>
+            <h3 style={{ marginBottom: '1rem' }}>QUESTION BANK ({questions.length})</h3>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ textAlign: 'left', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
